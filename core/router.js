@@ -1,3 +1,5 @@
+import { Button } from './dom-api.js';
+
 // View Container
 let container
 let currentView
@@ -19,11 +21,11 @@ async function mountRouteElement(elem, routeParams) {
 
   currentView = await elem({ container, routeParams })
 
-  container.appendChild(currentView)
+  container.appendChild(currentView);
 }
 
 function getFullUrl(href) {
-  return href.split(location.host)[1]
+  return href.split(location.host)[1];
 }
 
 /**
@@ -43,13 +45,18 @@ function getLocationParams() {
 }
 
 export const loadRoute = (url, noPush) => {
-  const currentUrl = url || getFullUrl(location.href)
-  const currentRoute = currentUrl.split('?')[0]
+  const currentUrl = url || getFullUrl(location.href);
+  const currentRoute = currentUrl.split('?')[0];
 
-  const route = routes[currentRoute]
+  const route = routes[currentRoute];
 
   if (route) {
-    mountRouteElement(route, Object.assign({}, getLocationParams(), { noPush }))
+    mountRouteElement(route, Object.assign({}, getLocationParams(), { noPush }));
+    if (history.state) {
+      backButton.classList.remove('hidden');
+    } else {
+      backButton.classList.add('hidden');
+    }
   } else {
     console.log('no route found')
   }
@@ -90,3 +97,8 @@ export const initialize = (routesDefinition, containerElement) => {
 
   loadRoute()
 }
+
+export const backButton = new Button({
+  onClick: () => goBack(),
+  className: 'backButton'
+}, 'Back');

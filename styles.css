@@ -47,7 +47,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  height: calc(100vh - 61px);
+  height: calc(100vh - 111px);
   overflow: auto;
 }
 
@@ -61,12 +61,12 @@ ul li:nth-child(odd) {
 
 .systemMessage {
   font-style: italic;
-  background: white !important
+  background: white !important;
 }
 
 #container, .page {
-  height: 100vh;
-  width: 100vw
+  height: calc(100vh - 50px);
+  width: 100vw;
 }
 
 .modal {
@@ -89,4 +89,23 @@ ul li:nth-child(odd) {
   margin: 10px;
   padding: 10px;
   width: 100%
+}
+
+#nav {
+  height: 50px;
+  background-color: #000099;
+  color: #ffffff;
+}
+
+#nav .backButton {
+  height: 100%;
+  font-weight: bold;
+}
+
+#nav .backButton.hidden {
+  opacity: 0;
+}
+
+#general-container {
+  height: 100vh ;
 }

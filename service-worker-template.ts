@@ -14,7 +14,13 @@ if (workbox) {
   workbox.routing.registerRoute(
     /\.(?:png|jpg|svg|gif)$/, // not using .jpeg or .webp for now, do not cache
     new workbox.strategies.CacheFirst({
-      cacheName: 'image-cache'
+      cacheName: 'image-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 20,
+          maxAgeSeconds: 60 * 60 * 24 * 7,
+        })
+      ]
     })
   );
 
@@ -22,6 +28,11 @@ if (workbox) {
     /\.js$/,
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: 'js-cache',
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0, 200] 
+        })
+      ]
     })
   );
 
