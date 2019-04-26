@@ -9,7 +9,7 @@ if (workbox) {
   },
   {
     "url": "core/router.js",
-    "revision": "bf6366154bfb5271c0e78c92d207b3a9"
+    "revision": "457ac7bc068f4bf16dcab3535951c945"
   },
   {
     "url": "favicon.ico",
@@ -17,11 +17,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "cb38938f075a9ad00fdb3be33ead4ade"
+    "revision": "6587999835fb4f9074ecb62847184b86"
   },
   {
     "url": "index.js",
-    "revision": "4a149aca96de8c9dbd9487cf65917468"
+    "revision": "f57836d3bfc2319749cbb7a92c905298"
   },
   {
     "url": "package.json",
@@ -45,15 +45,19 @@ if (workbox) {
   },
   {
     "url": "styles.css",
-    "revision": "ac114077241466030b100380348a67ad"
+    "revision": "96dfd17e301642e39b9dbbad7bb4b1fe"
   },
   {
     "url": "utils/loadExternalLib.js",
     "revision": "4e764c6039be85f984003611659f411e"
   },
   {
+    "url": "utils/showJoinModal.js",
+    "revision": "d6a71fb24ef9872aa4add1f84610a373"
+  },
+  {
     "url": "utils/showModal.js",
-    "revision": "6b5699d60f7135250cba35607583473c"
+    "revision": "f7b943302cd3fff2307e34009aad5d52"
   },
   {
     "url": "utils/urls.js",
@@ -74,7 +78,13 @@ if (workbox) {
   workbox.routing.registerRoute(
     /\.(?:png|jpg|svg|gif)$/, // not using .jpeg or .webp for now, do not cache
     new workbox.strategies.CacheFirst({
-      cacheName: 'image-cache'
+      cacheName: 'image-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 20,
+          maxAgeSeconds: 60 * 60 * 24 * 7,
+        })
+      ]
     })
   );
 
@@ -82,6 +92,11 @@ if (workbox) {
     /\.js$/,
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: 'js-cache',
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0, 200] 
+        })
+      ]
     })
   );
 

@@ -3,7 +3,9 @@ import {
   backButton
 } from './core/router.js';
 import Rooms from './pages/rooms.js';
-import { Div } from './core/dom-api.js';
+import {
+  Div
+} from './core/dom-api.js';
 
 
 const asyncLoader = path => async params => {
@@ -36,3 +38,14 @@ window.addEventListener('online', () => {
 window.addEventListener('offline', () => {
   nav.appendChild(offlineStatusIndicator);
 });
+
+if (!navigator.standalone
+  && navigator.platform === 'iPhone'
+  && !localStorage.getItem('installationPromptSeen')) {
+  ShowModal({
+    children: ['You can install this app to your iPhone! Just click "Share" and then "Add to home screen"'],
+    noCancel: true,
+  });
+
+  localStorage.setItem('installationPromptSeen', 'true')
+}

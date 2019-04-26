@@ -11,6 +11,7 @@ body {
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+  background-color: purple;
 }
 
 html,
@@ -32,7 +33,7 @@ input {
   border: 0;
   padding: 10px;
   margin-right: .5%;
-  font-size: 30px
+  font-size: 30px;
 }
 
 button {
@@ -64,9 +65,37 @@ ul li:nth-child(odd) {
   background: white !important;
 }
 
-#container, .page {
-  height: calc(100vh - 50px);
+#general-container {
+  height: 100vh;
   width: 100vw;
+  background-color: white;
+}
+
+#nav {
+  height: 50px;
+  background-color: purple;
+  color: white;
+}
+
+#nav .backButton {
+  height: 100%;
+  font-weight: bold;
+  width: 50px;
+}
+
+#nav .backButton.hidden {
+  opacity: 0;
+}
+
+#nav .offline {
+  float: right;
+  line-height: 50px;
+  margin-right: 10px;
+}
+
+.page, #container {
+  width: 100vw;
+  height: calc(100vh - 50px);
 }
 
 .modal {
@@ -78,7 +107,7 @@ ul li:nth-child(odd) {
   background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
 }
 
 .modal input {
@@ -88,24 +117,20 @@ ul li:nth-child(odd) {
 .modal button {
   margin: 10px;
   padding: 10px;
-  width: 100%
+  width: 100%;
 }
 
-#nav {
-  height: 50px;
-  background-color: #000099;
-  color: #ffffff;
-}
+@media screen and (orientation: landscape) and (max-height: 600px) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 
-#nav .backButton {
-  height: 100%;
-  font-weight: bold;
-}
-
-#nav .backButton.hidden {
-  opacity: 0;
-}
-
-#general-container {
-  height: 100vh ;
+  #general-container { height: 100vw; width: 100vh; }
 }
